@@ -8,7 +8,7 @@ See the original documentation [here](https://github.com/dangmai/prettier-plugin
 
 These are the changes from the original project:
 
-### Empty line at the start of a class
+### Empty line at the start of a class / interface / trigger
 
 #### Before
 
