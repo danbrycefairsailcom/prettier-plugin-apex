@@ -448,7 +448,9 @@ function handleTriggerDeclarationUnit(path, print, options) {
   parts.push(")");
   parts.push(" ");
   parts.push("{");
-  parts.push(hardline);
+  if (options.apexBeginClassWithEmptyLine) {
+    parts.push(hardline);
+  }
   const memberParts = path.map(print, "members").filter((member) => member);
 
   const memberDocs = memberParts.map((memberDoc, index, allMemberDocs) => {
@@ -502,7 +504,9 @@ function handleInterfaceDeclaration(path, print, options) {
   }
   parts.push(" ");
   parts.push("{");
-  parts.push(hardline);
+  if (options.apexBeginClassWithEmptyLine) {
+    parts.push(hardline);
+  }
   if (danglingCommentDocs.length > 0) {
     parts.push(indent(concat([hardline, ...danglingCommentDocs])));
   } else if (memberDocs.length > 0) {
@@ -555,7 +559,9 @@ function handleClassDeclaration(path, print, options) {
   }
   parts.push(" ");
   parts.push("{");
-  parts.push(hardline);
+  if (options.apexBeginClassWithEmptyLine) {
+    parts.push(hardline);
+  }
   if (danglingCommentDocs.length > 0) {
     parts.push(indent(concat([hardline, ...danglingCommentDocs])));
   } else if (memberDocs.length > 0) {

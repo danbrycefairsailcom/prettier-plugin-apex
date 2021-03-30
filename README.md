@@ -6,9 +6,11 @@ See the original documentation [here](https://github.com/dangmai/prettier-plugin
 
 ## Changes
 
-These are the changes from the original project:
+These are the changes from the original project. Each one is configurable with an option in `.prettierrc`.
 
 ### Empty line at the start of a class / interface / trigger
+
+**Option:** `apexBeginClassWithEmptyLine` (boolean)
 
 #### Before
 
