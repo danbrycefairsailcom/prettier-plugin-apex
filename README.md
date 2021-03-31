@@ -19,6 +19,7 @@ public class Potato {
     private int size;
 
     ...
+}
 ```
 
 #### After
@@ -29,6 +30,32 @@ public class Potato {
     private int size;
 
     ...
+}
+```
+
+### No newline before conditional expressions, in if-statements and loops
+
+**Option:** `apexSkipNewlineBeforeCondition` (_boolean_)
+
+#### Before
+
+```
+if(
+        conditionA
+        && conditionB
+        && conditionC) {
+    ...
+}
+```
+
+#### After
+
+```
+if(conditionA
+        && conditionB
+        && conditionC) {
+    ...
+}
 ```
 
 ### No newline before closing parenthesis, for statements with a body
@@ -63,15 +90,11 @@ private void doSomething(
 
 ### Still To Do
 
-- Prevent newlines before if-clause:
-
-       if (
-           ...) {
-
 - Indent twice for continuation lines
 - Add curly braces in single-line if/where/for bodies
 - Newline after `/*` in block comments
 - Line breaks between methods
+- Line breaks BEFORE operators
 
 ## Developing the Plugin
 

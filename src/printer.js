@@ -1460,7 +1460,9 @@ function handleIfBlock(path, print) {
   parts.push(" ");
   // Condition expression
   conditionParts.push("(");
-  conditionParts.push(softline);
+  if (!options.apexSkipNewlineBeforeCondition) {
+    conditionParts.push(softline);
+  }
   conditionParts.push(path.call(print, "expr"));
   if (!options.apexSkipNewlineBeforeClosingParenthesis) {
     conditionParts.push(dedent(softline));
@@ -2469,11 +2471,14 @@ function handleWhileLoop(path, print) {
   parts.push(" ");
   parts.push("(");
   // Condition
-  if (options.apexSkipNewlineBeforeClosingParenthesis) {
-    parts.push(groupIndentConcat([softline, conditionDoc]));
-  } else {
-    parts.push(groupIndentConcat([softline, conditionDoc, dedent(softline)]));
+  const conditionGroup = [conditionDoc];
+  if (!options.apexSkipNewlineBeforeCondition) {
+    conditionGroup = [softline, ...conditionGroup];
   }
+  if (!options.apexSkipNewlineBeforeClosingParenthesis) {
+    conditionGroup = [...conditionGroup, dedent(softline)];
+  }
+  parts.push(groupIndentConcat(conditionGroup));
   parts.push(")");
   if (!node.stmnt.value) {
     parts.push(";");
@@ -2505,11 +2510,14 @@ function handleDoLoop(path, print) {
   parts.push(" ");
   parts.push("(");
   // Condition
-  if (options.apexSkipNewlineBeforeClosingParenthesis) {
-    parts.push(groupIndentConcat([softline, conditionDoc]));
-  } else {
-    parts.push(groupIndentConcat([softline, conditionDoc, dedent(softline)]));
+  const conditionGroup = [conditionDoc];
+  if (!options.apexSkipNewlineBeforeCondition) {
+    conditionGroup = [softline, ...conditionGroup];
   }
+  if (!options.apexSkipNewlineBeforeClosingParenthesis) {
+    conditionGroup = [...conditionGroup, dedent(softline)];
+  }
+  parts.push(groupIndentConcat(conditionGroup));
   parts.push(")");
   parts.push(";");
   return concat(parts);
@@ -2534,11 +2542,14 @@ function handleForLoop(path, print) {
   ) {
     parts.push(forControlDoc);
   } else {
-    if (options.apexSkipNewlineBeforeClosingParenthesis) {
-      parts.push(groupIndentConcat([softline, forControlDoc]));
-    } else {
-      parts.push(groupIndentConcat([softline, forControlDoc, dedent(softline)]));
+    const conditionGroup = [forControlDoc];
+    if (!options.apexSkipNewlineBeforeCondition) {
+      conditionGroup = [softline, ...conditionGroup];
     }
+    if (!options.apexSkipNewlineBeforeClosingParenthesis) {
+      conditionGroup = [...conditionGroup, dedent(softline)];
+    }
+    parts.push(groupIndentConcat(conditionGroup));
   }
   parts.push(")");
   if (!node.stmnt.value) {

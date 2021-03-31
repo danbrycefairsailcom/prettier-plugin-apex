@@ -126,6 +126,13 @@ const options = {
     description:
       "Whether to start a class or trigger with a blank line. Default to true.",
   },
+  apexSkipNewlineBeforeCondition: {
+    type: "boolean",
+    category: CATEGORY_APEX,
+    default: true,
+    description:
+      "Whether to skip newlines that would normally be added before a conditional expression. Default to true.",
+  },
   apexSkipNewlineBeforeClosingParenthesis: {
     type: "boolean",
     category: CATEGORY_APEX,
