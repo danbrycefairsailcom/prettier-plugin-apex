@@ -33,6 +33,26 @@ public class Potato {
 }
 ```
 
+### Use additional indent for continuation lines
+
+**Option:** `apexUseContinuationIndent` (_boolean_)
+
+#### Before
+
+```
+doSomething(paramA,
+    paramB,
+    paramC);
+```
+
+#### After
+
+```
+doSomething(paramA,
+        paramB,
+        paramC);
+```
+
 ### No newline before conditional expressions, in if-statements and loops
 
 **Option:** `apexSkipNewlineBeforeCondition` (_boolean_)
@@ -90,8 +110,11 @@ private void doSomething(
 
 ### Still To Do
 
-- Indent twice for continuation lines
-- Add curly braces in single-line if/where/for bodies
+- Support continuation lines (WIP)
+  - In method signatures
+  - When calling constructors
+  - Before ternary operators
+  - Need to dedent closing bracket after method parameters
 - Newline after `/*` in block comments
 - Line breaks between methods
 - Line breaks BEFORE operators
@@ -122,6 +145,10 @@ After making a change to the Prettier plugin, it must be reloaded using:
 
     Ctrl + Shift + P => Reload Window
 
+Note that it can take some time for Prettier to initialise.
+
 ## Useful Links
 
+- [Developing Prettier Plugins](https://prettier.io/docs/en/plugins.html#developing-plugins)
 - [Prettier Commands](https://github.com/prettier/prettier/blob/main/commands.md)
+- [AstPath Class](https://github.com/prettier/prettier/blob/main/src/common/ast-path.js) (`path` parameter supplied to print functions)

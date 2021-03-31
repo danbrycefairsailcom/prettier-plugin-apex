@@ -126,6 +126,13 @@ const options = {
     description:
       "Whether to start a class or trigger with a blank line. Default to true.",
   },
+  apexUseContinuationIndent: {
+    type: "boolean",
+    category: CATEGORY_APEX,
+    default: true,
+    description:
+      "Whether to use an additional indent for continuation lines. Default to true.",
+  },
   apexSkipNewlineBeforeCondition: {
     type: "boolean",
     category: CATEGORY_APEX,

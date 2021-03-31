@@ -32,6 +32,9 @@ const constants = require("./constants");
 
 const apexTypes = constants.APEX_TYPES;
 
+let continuationIndent;
+let endContinuationIndent;
+
 function indentConcat(docs) {
   return indent(concat(docs));
 }
@@ -1206,8 +1209,8 @@ function handleMethodCallExpression(path, print) {
       dottedExpressionDoc,
       methodCallChainDoc,
       "(",
-      group(indent(resultParamDoc)),
-      ")",
+      group(continuationIndent((resultParamDoc))),
+      endContinuationIndent(")"),
       arrayIndexDoc,
     ]);
   } else {
@@ -1218,7 +1221,7 @@ function handleMethodCallExpression(path, print) {
     //   .c()
     //   .d()  // <- this node here
     resultDoc = group(
-      indent(
+      continuationIndent(
         concat([
           dottedExpressionDoc,
           // If there is no dottedExpr, we should group the method call chain
@@ -1237,9 +1240,9 @@ function handleMethodCallExpression(path, print) {
           dottedExpressionDoc ? methodCallChainDoc : group(methodCallChainDoc),
           "(",
           dottedExpressionDoc
-            ? group(indent(resultParamDoc))
+            ? group(continuationIndent(resultParamDoc))
             : group(resultParamDoc),
-          ")",
+            endContinuationIndent(")"),
           arrayIndexDoc,
         ]),
       ),
@@ -2908,6 +2911,17 @@ function genericPrint(path, options, print) {
   if (!n) {
     return "";
   }
+
+  if (options.apexUseContinuationIndent) {
+    // Use a double indent, and dedent back to normal when we're done!
+    continuationIndent = path => indent(indent(path));
+    endContinuationIndent = dedent;
+  } else {
+    // Just use a regular indent, no extra work required
+    continuationIndent = indent;
+    endContinuationIndent = () => {};
+  }
+
   const apexClass = n["@class"];
   if (path.stack.length === 1) {
     // Hard code how to handle the root node here
