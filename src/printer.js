@@ -442,7 +442,9 @@ function handleTriggerDeclarationUnit(path, print, options) {
   // Usage
   usageParts.push(softline);
   usageParts.push(join(concat([",", line]), usageDocs));
-  usageParts.push(dedent(softline));
+  if (!options.apexSkipNewlineBeforeClosingParenthesis) {
+    usageParts.push(dedent(softline));
+  }
   parts.push(groupIndentConcat(usageParts));
 
   parts.push(")");
@@ -757,7 +759,9 @@ function handleMethodDeclaration(path, print) {
   if (parameterDocs.length > 0) {
     parameterParts.push(softline);
     parameterParts.push(join(concat([",", line]), parameterDocs));
-    parameterParts.push(dedent(softline));
+    if (!options.apexSkipNewlineBeforeClosingParenthesis) {
+      parameterParts.push(dedent(softline));
+    }
     parts.push(groupIndentConcat(parameterParts));
   }
   parts.push(")");
@@ -1458,7 +1462,9 @@ function handleIfBlock(path, print) {
   conditionParts.push("(");
   conditionParts.push(softline);
   conditionParts.push(path.call(print, "expr"));
-  conditionParts.push(dedent(softline));
+  if (!options.apexSkipNewlineBeforeClosingParenthesis) {
+    conditionParts.push(dedent(softline));
+  }
   conditionParts.push(")");
   parts.push(groupIndentConcat(conditionParts));
   // Body block
@@ -2463,7 +2469,11 @@ function handleWhileLoop(path, print) {
   parts.push(" ");
   parts.push("(");
   // Condition
-  parts.push(groupIndentConcat([softline, conditionDoc, dedent(softline)]));
+  if (options.apexSkipNewlineBeforeClosingParenthesis) {
+    parts.push(groupIndentConcat([softline, conditionDoc]));
+  } else {
+    parts.push(groupIndentConcat([softline, conditionDoc, dedent(softline)]));
+  }
   parts.push(")");
   if (!node.stmnt.value) {
     parts.push(";");
@@ -2495,7 +2505,11 @@ function handleDoLoop(path, print) {
   parts.push(" ");
   parts.push("(");
   // Condition
-  parts.push(groupIndentConcat([softline, conditionDoc, dedent(softline)]));
+  if (options.apexSkipNewlineBeforeClosingParenthesis) {
+    parts.push(groupIndentConcat([softline, conditionDoc]));
+  } else {
+    parts.push(groupIndentConcat([softline, conditionDoc, dedent(softline)]));
+  }
   parts.push(")");
   parts.push(";");
   return concat(parts);
@@ -2520,7 +2534,11 @@ function handleForLoop(path, print) {
   ) {
     parts.push(forControlDoc);
   } else {
-    parts.push(groupIndentConcat([softline, forControlDoc, dedent(softline)]));
+    if (options.apexSkipNewlineBeforeClosingParenthesis) {
+      parts.push(groupIndentConcat([softline, forControlDoc]));
+    } else {
+      parts.push(groupIndentConcat([softline, forControlDoc, dedent(softline)]));
+    }
   }
   parts.push(")");
   if (!node.stmnt.value) {
