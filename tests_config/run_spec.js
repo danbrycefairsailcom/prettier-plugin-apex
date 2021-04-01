@@ -60,6 +60,14 @@ function runSpec(dirname, parsers, specOptions) {
     ) {
       const source = read(path).replace(/\r\n/g, "\n");
 
+      // Special defaults for unit tests so we don't break existing tests
+      const defaultOptions = {
+        apexBeginClassWithEmptyLine: false,
+        apexUseContinuationIndent: false,
+        apexSkipNewlineBeforeCondition: false,
+        apexSkipNewlineBeforeClosingParenthesis: false,
+      };
+
       let options;
       if (!Array.isArray(specOptions)) {
         options = [specOptions];
@@ -68,6 +76,7 @@ function runSpec(dirname, parsers, specOptions) {
       }
       const mergedOptions = options.map((opts) => ({
         plugins: ["."],
+        ...defaultOptions,
         ...opts,
         parser: parsers[0],
       }));

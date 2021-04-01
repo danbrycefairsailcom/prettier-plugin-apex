@@ -742,7 +742,7 @@ function _handlePropertyGetterSetter(action) {
   };
 }
 
-function handleMethodDeclaration(path, print) {
+function handleMethodDeclaration(path, print, options) {
   const statementDoc = path.call(print, "stmnt", "value");
   const modifierDocs = path.map(print, "modifiers");
   const parameterDocs = path.map(print, "parameters");
@@ -1209,7 +1209,7 @@ function handleMethodCallExpression(path, print) {
       dottedExpressionDoc,
       methodCallChainDoc,
       "(",
-      group(continuationIndent((resultParamDoc))),
+      group(continuationIndent(resultParamDoc)),
       endContinuationIndent(")"),
       arrayIndexDoc,
     ]);
@@ -1242,7 +1242,7 @@ function handleMethodCallExpression(path, print) {
           dottedExpressionDoc
             ? group(continuationIndent(resultParamDoc))
             : group(resultParamDoc),
-            endContinuationIndent(")"),
+          endContinuationIndent(")"),
           arrayIndexDoc,
         ]),
       ),
@@ -1453,7 +1453,7 @@ function handleIfElseBlock(path, print) {
   return groupConcat(parts);
 }
 
-function handleIfBlock(path, print) {
+function handleIfBlock(path, print, options) {
   const statementType = path.call(print, "stmnt", "@class");
   const statementDoc = path.call(print, "stmnt");
 
@@ -2465,7 +2465,7 @@ function handlePrefixOperator(path, print) {
   return constants.PREFIX[path.call(print, "$")];
 }
 
-function handleWhileLoop(path, print) {
+function handleWhileLoop(path, print, options) {
   const node = path.getValue();
   const conditionDoc = path.call(print, "condition");
 
@@ -2474,7 +2474,7 @@ function handleWhileLoop(path, print) {
   parts.push(" ");
   parts.push("(");
   // Condition
-  const conditionGroup = [conditionDoc];
+  let conditionGroup = [conditionDoc];
   if (!options.apexSkipNewlineBeforeCondition) {
     conditionGroup = [softline, ...conditionGroup];
   }
@@ -2499,7 +2499,7 @@ function handleWhileLoop(path, print) {
   return concat(parts);
 }
 
-function handleDoLoop(path, print) {
+function handleDoLoop(path, print, options) {
   const statementDoc = path.call(print, "stmnt");
   const conditionDoc = path.call(print, "condition");
 
@@ -2513,7 +2513,7 @@ function handleDoLoop(path, print) {
   parts.push(" ");
   parts.push("(");
   // Condition
-  const conditionGroup = [conditionDoc];
+  let conditionGroup = [conditionDoc];
   if (!options.apexSkipNewlineBeforeCondition) {
     conditionGroup = [softline, ...conditionGroup];
   }
@@ -2526,7 +2526,7 @@ function handleDoLoop(path, print) {
   return concat(parts);
 }
 
-function handleForLoop(path, print) {
+function handleForLoop(path, print, options) {
   const node = path.getValue();
   const forControlDoc = path.call(print, "forControl");
 
@@ -2545,7 +2545,7 @@ function handleForLoop(path, print) {
   ) {
     parts.push(forControlDoc);
   } else {
-    const conditionGroup = [forControlDoc];
+    let conditionGroup = [forControlDoc];
     if (!options.apexSkipNewlineBeforeCondition) {
       conditionGroup = [softline, ...conditionGroup];
     }
@@ -2914,7 +2914,7 @@ function genericPrint(path, options, print) {
 
   if (options.apexUseContinuationIndent) {
     // Use a double indent, and dedent back to normal when we're done!
-    continuationIndent = path => indent(indent(path));
+    continuationIndent = (p) => indent(indent(p));
     endContinuationIndent = dedent;
   } else {
     // Just use a regular indent, no extra work required

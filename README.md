@@ -114,7 +114,7 @@ private void doSomething(
   - In method signatures
   - When calling constructors
   - Before ternary operators
-  - Need to dedent closing bracket after method parameters
+  - Need to dedent closing bracket after method parameters (current mechanism is not working)
 - Newline after `/*` in block comments
 - Line breaks between methods
 - Line breaks BEFORE operators

@@ -146,7 +146,7 @@ const options = {
     default: true,
     description:
       "Whether to skip newlines that would normally be added before a closing parenthesis, for statements with bodies. Default to true.",
-  }
+  },
 };
 
 const defaultOptions = {};
