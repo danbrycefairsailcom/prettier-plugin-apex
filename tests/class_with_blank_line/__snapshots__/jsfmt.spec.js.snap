@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Format apex: Class.cls: Class.cls 1`] = `
+class OuterClass {
+  private int x;
+  class InnerClass {
+    private int y;
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class OuterClass {
+
+  private int x;
+  class InnerClass {
+
+    private int y;
+  }
+}
+
+`;
+
+exports[`Format apex: Interface.cls: Interface.cls 1`] = `
+Interface TestInterface {
+  void potato();
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface TestInterface {
+
+  void potato();
+}
+
+`;

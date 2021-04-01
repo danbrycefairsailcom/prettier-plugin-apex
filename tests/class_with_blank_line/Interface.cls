@@ -1,0 +1,3 @@
+Interface TestInterface {
+  void potato();
+}
