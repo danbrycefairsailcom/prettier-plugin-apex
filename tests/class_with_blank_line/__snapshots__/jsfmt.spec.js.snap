@@ -20,7 +20,7 @@ class OuterClass {
 `;
 
 exports[`Format apex: Interface.cls: Interface.cls 1`] = `
-Interface TestInterface {
+interface TestInterface {
   void potato();
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

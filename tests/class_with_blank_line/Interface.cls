@@ -1,3 +1,3 @@
-Interface TestInterface {
+interface TestInterface {
   void potato();
 }

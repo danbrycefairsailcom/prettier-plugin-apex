@@ -111,10 +111,8 @@ private void doSomething(
 ### Still To Do
 
 - Support continuation lines (WIP)
-  - In method signatures
-  - When calling constructors
   - Before ternary operators
-  - Need to dedent closing bracket after method parameters (current mechanism is not working)
+  - Need to dedent closing bracket after method parameters
 - Newline after `/*` in block comments
 - Line breaks between methods
 - Line breaks BEFORE operators

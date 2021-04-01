@@ -32,6 +32,8 @@ const constants = require("./constants");
 
 const apexTypes = constants.APEX_TYPES;
 
+let continuationIndent;
+
 function indentConcat(docs) {
   return indent(concat(docs));
 }
@@ -42,6 +44,10 @@ function groupConcat(docs) {
 
 function groupIndentConcat(docs) {
   return group(indent(concat(docs)));
+}
+
+function groupContinuationIndentConcat(docs) {
+  return group(continuationIndent(concat(docs)));
 }
 
 function _handlePassthroughCall(...names) {
@@ -762,7 +768,7 @@ function handleMethodDeclaration(path, print, options) {
     if (!options.apexSkipNewlineBeforeClosingParenthesis) {
       parameterParts.push(dedent(softline));
     }
-    parts.push(groupIndentConcat(parameterParts));
+    parts.push(groupContinuationIndentConcat(parameterParts));
   }
   parts.push(")");
   // Body
@@ -1052,7 +1058,7 @@ function handleNewStandard(path, print) {
     parts.push(dedent(softline));
   }
   parts.push(")");
-  return groupIndentConcat(parts);
+  return groupContinuationIndentConcat(parts);
 }
 
 function handleNewKeyValue(path, print) {
@@ -1206,7 +1212,7 @@ function handleMethodCallExpression(path, print) {
       dottedExpressionDoc,
       methodCallChainDoc,
       "(",
-      group(indent(resultParamDoc)),
+      group(continuationIndent(resultParamDoc)),
       ")",
       arrayIndexDoc,
     ]);
@@ -1218,7 +1224,7 @@ function handleMethodCallExpression(path, print) {
     //   .c()
     //   .d()  // <- this node here
     resultDoc = group(
-      indent(
+      continuationIndent(
         concat([
           dottedExpressionDoc,
           // If there is no dottedExpr, we should group the method call chain
@@ -1237,7 +1243,7 @@ function handleMethodCallExpression(path, print) {
           dottedExpressionDoc ? methodCallChainDoc : group(methodCallChainDoc),
           "(",
           dottedExpressionDoc
-            ? group(indent(resultParamDoc))
+            ? group(continuationIndent(resultParamDoc))
             : group(resultParamDoc),
           ")",
           arrayIndexDoc,
@@ -2908,6 +2914,15 @@ function genericPrint(path, options, print) {
   if (!n) {
     return "";
   }
+
+  if (options.apexUseContinuationIndent) {
+    // Use a double indent
+    continuationIndent = (p) => indent(indent(p));
+  } else {
+    // Just use a regular indent
+    continuationIndent = indent;
+  }
+
   const apexClass = n["@class"];
   if (path.stack.length === 1) {
     // Hard code how to handle the root node here
