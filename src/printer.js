@@ -33,6 +33,7 @@ const constants = require("./constants");
 const apexTypes = constants.APEX_TYPES;
 
 let continuationIndent;
+let endContinuationIndent;
 
 function indentConcat(docs) {
   return indent(concat(docs));
@@ -766,7 +767,7 @@ function handleMethodDeclaration(path, print, options) {
     parameterParts.push(softline);
     parameterParts.push(join(concat([",", line]), parameterDocs));
     if (!options.apexSkipNewlineBeforeClosingParenthesis) {
-      parameterParts.push(dedent(softline));
+      parameterParts.push(endContinuationIndent(softline));
     }
     parts.push(groupContinuationIndentConcat(parameterParts));
   }
@@ -1055,7 +1056,7 @@ function handleNewStandard(path, print) {
   if (paramDocs.length > 0) {
     parts.push(softline);
     parts.push(join(concat([",", line]), paramDocs));
-    parts.push(dedent(softline));
+    parts.push(endContinuationIndent(softline));
   }
   parts.push(")");
   return groupContinuationIndentConcat(parts);
@@ -1149,7 +1150,7 @@ function handleMethodCallExpression(path, print) {
       ? concat([
           softline,
           join(concat([",", line]), paramDocs),
-          dedent(softline),
+          endContinuationIndent(softline),
         ])
       : "";
 
@@ -2918,9 +2919,11 @@ function genericPrint(path, options, print) {
   if (options.apexUseContinuationIndent) {
     // Use a double indent
     continuationIndent = (p) => indent(indent(p));
+    endContinuationIndent = (p) => dedent(dedent(p));
   } else {
     // Just use a regular indent
     continuationIndent = indent;
+    endContinuationIndent = dedent;
   }
 
   const apexClass = n["@class"];

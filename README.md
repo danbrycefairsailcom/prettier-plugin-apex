@@ -110,9 +110,7 @@ private void doSomething(
 
 ### Still To Do
 
-- Support continuation lines (WIP)
-  - Before ternary operators
-  - Need to dedent closing bracket after method parameters
+- Support continuation lines before ternary operators
 - Newline after `/*` in block comments
 - Line breaks between methods
 - Line breaks BEFORE operators
@@ -145,8 +143,23 @@ After making a change to the Prettier plugin, it must be reloaded using:
 
 Note that it can take some time for Prettier to initialise.
 
+### Unit Tests
+
+To run linting and unit tests:
+
+```
+npm test
+```
+
+To run just the unit tests:
+
+```
+npx jest
+```
+
 ## Useful Links
 
+- [Dev Notes](/docs/dev_notes.md)
 - [Developing Prettier Plugins](https://prettier.io/docs/en/plugins.html#developing-plugins)
 - [Prettier Commands](https://github.com/prettier/prettier/blob/main/commands.md)
 - [AstPath Class](https://github.com/prettier/prettier/blob/main/src/common/ast-path.js) (`path` parameter supplied to print functions)
