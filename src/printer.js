@@ -1529,7 +1529,7 @@ function handleTernaryExpression(path, print) {
   parts.push(":");
   parts.push(" ");
   parts.push(group(align(2, path.call(print, "falseExpr"))));
-  return groupIndentConcat(parts);
+  return groupContinuationIndentConcat(parts);
 }
 
 function handleInstanceOfExpression(path, print) {

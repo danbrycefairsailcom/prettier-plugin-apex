@@ -50,4 +50,10 @@ class ContinuationLines {
           superLongParamNameD
         );
     }
+
+    Potato ternary(Boolean flag, Potato p1, Potato p2) {
+      return flag
+        ? p1.someReallyLongMutatorMethod()
+        : p2.someReallyLongMutatorMethod();
+    }
 }

@@ -110,7 +110,6 @@ private void doSomething(
 
 ### Still To Do
 
-- Support continuation lines before ternary operators
 - Newline after `/*` in block comments
 - Line breaks between methods
 - Line breaks BEFORE operators
