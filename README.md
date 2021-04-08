@@ -111,6 +111,9 @@ private void doSomething(
 ### Still To Do
 
 - Newline after `/*` in block comments
+- Support continuation lines inside a long expression
+  - if-statements
+  - assignment statements
 - Line breaks between methods
 - Line breaks BEFORE operators
 
